@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { RequestState } from "../../../shared";
+import { RequestState } from "../../../shared/config";
 import { LoginState } from "../login.iterface";
 import * as loginActions from "./login.actions";
 

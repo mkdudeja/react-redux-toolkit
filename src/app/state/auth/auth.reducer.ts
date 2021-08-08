@@ -1,10 +1,10 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { AuthState, IUserData } from "../../shared/interfaces";
+import { AuthState } from "../../shared/interfaces";
 import * as authActions from "./auth.actions";
 
 const initialState: AuthState = {
   token: null,
-  user: {} as IUserData,
+  user: null,
 };
 
 const authReducer = createReducer(initialState, (builder) => {

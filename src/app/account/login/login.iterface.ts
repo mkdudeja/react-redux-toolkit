@@ -1,4 +1,4 @@
-import { RequestState } from "../../shared";
+import { RequestState } from "../../shared/config";
 
 export interface LoginState {
   loading: RequestState;
@@ -21,5 +21,3 @@ export interface IUserData {
   role: number;
   language: number;
 }
-
-export interface IAuthState extends ILoginResponse {}

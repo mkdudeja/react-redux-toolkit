@@ -1,5 +1,5 @@
 import axios from "axios";
-import { appConstants } from "../shared";
+import { appConstants } from "../shared/config";
 import { ILoginRequest, ILoginResponse } from "./login/login.iterface";
 
 export const login = async (data: ILoginRequest) => {
