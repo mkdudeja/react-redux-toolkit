@@ -8,12 +8,10 @@ import * as serviceWorker from "./serviceWorker";
 import "./style.scss";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-      <ToastContainer />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App />
+    <ToastContainer />
+  </Provider>,
   document.getElementById("root")
 );
 

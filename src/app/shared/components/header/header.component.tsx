@@ -1,3 +1,4 @@
+import { Button, Menu, MenuItem } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,6 +9,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import clsx from "clsx";
 import React from "react";
+import { useAppDispatch } from "../../../state";
+import { authActions } from "../../../state/auth";
+import { useAuthState } from "../../hooks";
+import { storageService } from "../../services";
 
 const drawerWidth = 240;
 
@@ -48,6 +53,22 @@ interface IHeaderProps {
 
 const AppHeader: React.FC<IHeaderProps> = (props: IHeaderProps) => {
   const classes = useStyles();
+  const { user } = useAuthState();
+  const dispatch = useAppDispatch();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    storageService.clearAll();
+    dispatch(authActions.resetCredentials());
+  };
 
   return (
     <AppBar
@@ -81,6 +102,22 @@ const AppHeader: React.FC<IHeaderProps> = (props: IHeaderProps) => {
             <NotificationsIcon />
           </Badge>
         </IconButton>
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          {user.name}
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );

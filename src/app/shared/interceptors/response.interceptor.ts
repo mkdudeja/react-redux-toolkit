@@ -27,11 +27,11 @@ const responseInterceptor = (error: AxiosError<IServerError>) => {
 
   // throw an error to services/ components
   const code = helper.getPropertyValue<number>(error, "response.status");
-  return Promise.reject({
+  return Promise.reject<SerializedError>({
     code: code ? code.toString() : error.code,
     name: error.name,
     message: errorMessages.join("<br/>"),
-  } as SerializedError);
+  });
 };
 
 export default responseInterceptor;

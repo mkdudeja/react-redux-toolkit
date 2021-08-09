@@ -1,5 +1,5 @@
+import { SerializedError } from "@reduxjs/toolkit";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import { IErrorResponse } from "../interfaces";
 import axios from "./axios.service";
 
 class NetworkService {
@@ -72,7 +72,7 @@ class NetworkService {
       .then((response: AxiosResponse<T>) => {
         return response.data;
       })
-      .catch((error: IErrorResponse) => {
+      .catch((error: SerializedError) => {
         throw error;
       });
   }

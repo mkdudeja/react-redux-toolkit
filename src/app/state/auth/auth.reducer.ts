@@ -11,7 +11,10 @@ const initialState: AuthState = {
 
 const authReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(authActions.resetCredentials, () => initialState)
+    .addCase(authActions.resetCredentials, () => ({
+      token: null,
+      user: null,
+    }))
     .addCase(authActions.setCredentials, (state, action) => {
       return {
         ...state,

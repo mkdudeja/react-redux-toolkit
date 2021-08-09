@@ -1,4 +1,3 @@
-import { createAction } from "@reduxjs/toolkit";
-import { IErrorResponse } from "../shared/interfaces";
+import { createAction, SerializedError } from "@reduxjs/toolkit";
 
-export const error = createAction<IErrorResponse, "app/error">("app/error");
+export const error = createAction<SerializedError, "app/error">("app/error");
