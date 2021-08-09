@@ -5,14 +5,13 @@ class AppStorageTypes {
 
 class AppKeys {
   user = "userInfo";
-  state = "state";
   token = "accessToken";
   storageType = "sessionStorage";
 }
 
 class AppUrls {
   baseUrl = "http://localhost/aiislrc/api";
-  login = `${this.baseUrl}/account/login`;
+  login = `account/login`;
 }
 
 /**
@@ -36,4 +35,5 @@ class AppConstants {
   }
 }
 
-export const appConstants = AppConstants.getInstance();
+const appConstants = AppConstants.getInstance();
+export default appConstants;

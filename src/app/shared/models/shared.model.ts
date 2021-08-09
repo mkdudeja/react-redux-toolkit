@@ -1,6 +1,6 @@
-import { IError } from "../interfaces";
+import { IErrorResponse } from "../interfaces";
 
-export class ErrorModel implements IError {
+export class ErrorModel implements IErrorResponse {
   status: null | number;
   message: string;
   constructor(status: null | number, message: string) {

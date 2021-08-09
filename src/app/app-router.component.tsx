@@ -15,7 +15,7 @@ function AppRouterOutlet() {
     []
   );
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<></>}>
       <Switch>
         <PrivateRoute exact path="/" routePermission={homePermission}>
           <Home />

@@ -1,0 +1,9 @@
+// css configurations
+@import "assets/styles/_reset";
+@import "assets/styles/_variables";
+@import "assets/styles/_typography";
+// import libs
+@import "~nprogress/nprogress.css";
+@import "~react-toastify/dist/ReactToastify.css";
+// custom global styles
+@import "assets/styles/_global";

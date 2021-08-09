@@ -14,6 +14,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useFormik } from "formik";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import { useAppDispatch } from "../../state";
 import { authActions } from "../../state/auth";
@@ -71,9 +72,13 @@ function Login() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const response = await dispatch(loginActions.login(values)).unwrap();
-      dispatch(authActions.setCredentials(response));
-      push("/");
+      try {
+        const response = await dispatch(loginActions.login(values)).unwrap();
+        dispatch(authActions.setCredentials(response));
+        push("/");
+      } catch (err) {
+        toast.error(err.message);
+      }
     },
   });
 

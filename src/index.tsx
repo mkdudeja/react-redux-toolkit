@@ -1,15 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import App from "./app/app.component";
 import { store } from "./app/state";
-import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
+import "./style.scss";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
+      <ToastContainer />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
