@@ -9,6 +9,9 @@ import LayersIcon from "@material-ui/icons/Layers";
 import PeopleIcon from "@material-ui/icons/People";
 import clsx from "clsx";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { UserRole } from "../../config";
+import { useAuthState } from "../../hooks";
 
 const drawerWidth = 240;
 
@@ -48,7 +51,8 @@ interface ILeftNavProps {
 }
 
 const LeftNavigation: React.FC<ILeftNavProps> = (props: ILeftNavProps) => {
-  const classes = useStyles();
+  const classes = useStyles(),
+    { user } = useAuthState();
 
   return (
     <Drawer
@@ -67,24 +71,29 @@ const LeftNavigation: React.FC<ILeftNavProps> = (props: ILeftNavProps) => {
         </IconButton>
       </div>
       <Divider />
-      <ListItem button>
+      <ListItem button component={RouterLink} to="/">
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <LayersIcon />
-        </ListItemIcon>
-        <ListItemText primary="Languages" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Users" />
-      </ListItem>
+      {user.role === UserRole.Admin && (
+        <React.Fragment>
+          <ListItem button component={RouterLink} to="/language">
+            <ListItemIcon>
+              <LayersIcon />
+            </ListItemIcon>
+            <ListItemText primary="Language" />
+          </ListItem>
+          <ListItem button component={RouterLink} to="/user-management">
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Users" />
+          </ListItem>
+        </React.Fragment>
+      )}
+
       <Divider />
     </Drawer>
   );

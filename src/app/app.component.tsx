@@ -1,3 +1,4 @@
+import { Container } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
@@ -15,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: "100vh",
     overflow: "auto",
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   },
 }));
 
@@ -39,7 +44,9 @@ function App() {
         )}
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <AppRouterOutlet />
+          <Container maxWidth="xl" className={classes.container}>
+            <AppRouterOutlet />
+          </Container>
         </main>
       </div>
     </Router>
