@@ -99,14 +99,14 @@ function Login() {
         >
           <TextField
             variant="outlined"
-            margin="normal"
-            required
-            fullWidth
+            margin="dense"
             id="username"
+            type="text"
             label="Email Address"
             name="username"
-            autoComplete="username"
             autoFocus
+            required
+            fullWidth
             value={formik.values.username}
             onChange={formik.handleChange}
             error={formik.touched.username && Boolean(formik.errors.username)}
@@ -114,14 +114,13 @@ function Login() {
           />
           <TextField
             variant="outlined"
-            margin="normal"
-            required
-            fullWidth
+            margin="dense"
             name="password"
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            required
+            fullWidth
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
