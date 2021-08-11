@@ -14,7 +14,7 @@ import { authActions } from "../../../state/auth";
 import { useAuthState } from "../../hooks";
 import { storageService } from "../../services";
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
