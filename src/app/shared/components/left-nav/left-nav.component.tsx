@@ -5,6 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import LayersIcon from "@material-ui/icons/Layers";
 import PeopleIcon from "@material-ui/icons/People";
 import clsx from "clsx";
@@ -13,7 +14,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { UserRole } from "../../config";
 import { useAuthState } from "../../hooks";
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
@@ -77,19 +78,25 @@ const LeftNavigation: React.FC<ILeftNavProps> = (props: ILeftNavProps) => {
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
+      <ListItem button component={RouterLink} to="/documents">
+        <ListItemIcon>
+          <InsertDriveFileIcon />
+        </ListItemIcon>
+        <ListItemText primary="Documents" />
+      </ListItem>
       {user.role === UserRole.Admin && (
         <React.Fragment>
           <ListItem button component={RouterLink} to="/language">
             <ListItemIcon>
               <LayersIcon />
             </ListItemIcon>
-            <ListItemText primary="Language" />
+            <ListItemText primary="Language Management" />
           </ListItem>
           <ListItem button component={RouterLink} to="/user-management">
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="Users" />
+            <ListItemText primary="User Management" />
           </ListItem>
         </React.Fragment>
       )}

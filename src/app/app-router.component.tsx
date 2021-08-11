@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./home/home.component";
+import Dashboard from "./dashboard/dashboard.component";
 import { PrivateRoute } from "./shared/components";
 import { RoutePermissionType, UserRole } from "./shared/config";
 import { RoutePermission } from "./shared/models";
@@ -37,7 +37,7 @@ function AppRouterOutlet() {
     <Suspense fallback={<></>}>
       <Switch>
         <PrivateRoute exact path="/" routePermission={loginPermission}>
-          <Home />
+          <Dashboard />
         </PrivateRoute>
         <Route path="/account">
           <LazyAccount />
