@@ -12,6 +12,26 @@ class AppKeys {
 class AppUrls {
   baseUrl = "http://localhost/aiislrc/api";
   login = `account/login`;
+
+  getAllUsers = `user/getAllUsers`;
+  saveUser = `user/saveUser`;
+  deleteUser = `user/deleteUser`;
+  updateUser = `user/updateUser`;
+  updateStatus = `user/updateStatus`;
+
+  getDocuments = `document/getDocuments`;
+  saveDocument = `document/saveDocument`;
+  deleteDocument = `document/deleteDocument`;
+  updateDocument = `document/updateDocument`;
+  updateDocStatus = `document/updateStatus`;
+  downloadDocument = `document/downloadDocument`;
+  getDocumentMasterData = `document/getDocumentMasterData`;
+
+  getLanguages = `language/getLanguages`;
+  saveLanaguge = `language/saveLanguage`;
+  deleteLanaguge = `language/deleteLanguage`;
+  updateLanaguge = `language/updateLanguage`;
+  updateLanguageStatus = `language/updateStatus`;
 }
 
 /**

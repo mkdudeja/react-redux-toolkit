@@ -1,7 +1,7 @@
 export interface IUserData {
   id: number;
   name: string;
-  role: number;
+  role: string;
   language: number;
 }
 
