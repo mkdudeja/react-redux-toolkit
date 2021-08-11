@@ -73,6 +73,35 @@ class Helper {
       return false;
     }
   }
+
+  parseObjectForInt<T>(
+    dataSource: { [k: string]: any },
+    keys: Array<string>
+  ): T {
+    keys.forEach((key) => {
+      dataSource[key] = parseInt(dataSource[key], 10);
+    });
+    return dataSource as T;
+  }
+
+  parseObjectsForArray<T>(dataSource: Array<T>, keys: Array<string>): Array<T> {
+    return dataSource.map((row: { [k: string]: any }) => {
+      keys.forEach((key: string) => {
+        row[key] = JSON.parse(row[key]);
+      });
+      return row as T;
+    });
+  }
+
+  parseObjectForArray<T>(
+    dataSource: { [k: string]: any },
+    keys: Array<string>
+  ): T {
+    keys.forEach((key: string) => {
+      dataSource[key] = JSON.parse(dataSource[key]);
+    });
+    return dataSource as T;
+  }
 }
 
 export const helper = Helper.getInstance();
