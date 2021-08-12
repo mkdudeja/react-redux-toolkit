@@ -1,5 +1,7 @@
-import { appConstants, helper, networkService } from "../shared";
+import { appConstants } from "../shared/config";
 import { IToggleStatus } from "../shared/interfaces";
+import { networkService } from "../shared/services";
+import { helper } from "../shared/utils";
 import { ILangauge } from "./language.interface";
 
 const Language_Parse_Int = ["id", "is_active"];
