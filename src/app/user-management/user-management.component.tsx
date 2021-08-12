@@ -12,12 +12,14 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import React from "react";
 import { toast } from "react-toastify";
+import { languageActions, languageSelectors } from "../language/state";
 import { DialogConfirm } from "../shared/components";
 import { IDialogConfirm, IToggleStatus } from "../shared/interfaces";
 import { DialogConfirmModel } from "../shared/models";
-import { useAppSelector } from "../state";
-import { IUserDetails } from "./user-management.interface";
-import { UserModel } from "./user-management.model";
+import { useAppDispatch, useAppSelector } from "../state";
+import DialogUserDetails from "./dialog-user-details/dialog-user-details.component";
+import { IDialogUserDetails, IUserDetails } from "./user-management.interface";
+import { DialogUserDetailsModel, UserModel } from "./user-management.model";
 import {
   selectAllUsers,
   useDeleteUserMutation,
@@ -33,11 +35,16 @@ const useStyles = makeStyles({
 
 const newUser = new UserModel();
 const defaultConfirmModel = new DialogConfirmModel();
+const defaultUserDetailsModel = new DialogUserDetailsModel();
 
 const UserManagement: React.FC<{}> = (props: {}) => {
-  const classes = useStyles();
+  const classes = useStyles(),
+    dispatch = useAppDispatch(),
+    languagesLoaded = useAppSelector(languageSelectors.doesLanguagesExists);
   const [dialogConfirm, setDialogConfirm] =
     React.useState<IDialogConfirm>(defaultConfirmModel);
+  const [dialogUserDetails, setDialogUserDetails] =
+    React.useState<IDialogUserDetails>(defaultUserDetailsModel);
 
   const { isLoading, isError } = useGetUsersQuery(),
     users = useAppSelector(selectAllUsers);
@@ -45,8 +52,19 @@ const UserManagement: React.FC<{}> = (props: {}) => {
   const [updateStatusFn] = useUpdateStatusMutation(),
     [deleteUserFn] = useDeleteUserMutation();
 
-  const dialogUserDetails = (user: IUserDetails) => {
+  React.useEffect(() => {
+    console.log("React.useEffect", languagesLoaded);
+    if (!languagesLoaded) {
+      dispatch(languageActions.getLangauges());
+    }
+  }, [dispatch, languagesLoaded]);
+
+  const handleUserDetails = (user: IUserDetails) => {
     console.log("user", user);
+    setDialogUserDetails({
+      open: true,
+      user,
+    });
   };
 
   const onToggleStatus = (
@@ -114,7 +132,7 @@ const UserManagement: React.FC<{}> = (props: {}) => {
         <Button
           variant="outlined"
           color="primary"
-          onClick={() => dialogUserDetails(newUser)}
+          onClick={() => handleUserDetails(newUser)}
         >
           Add User
         </Button>
@@ -149,7 +167,7 @@ const UserManagement: React.FC<{}> = (props: {}) => {
                   <IconButton
                     aria-label="delete"
                     size="small"
-                    onClick={() => dialogUserDetails(row)}
+                    onClick={() => handleUserDetails(row)}
                   >
                     <EditIcon />
                   </IconButton>
@@ -168,8 +186,12 @@ const UserManagement: React.FC<{}> = (props: {}) => {
         </Table>
       </TableContainer>
 
-      {/** languages dialogs */}
+      {/** user details dialogs */}
       <DialogConfirm {...dialogConfirm} setProps={setDialogConfirm} />
+      <DialogUserDetails
+        {...dialogUserDetails}
+        setProps={setDialogUserDetails}
+      />
     </React.Fragment>
   );
 };

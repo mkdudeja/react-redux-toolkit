@@ -42,7 +42,15 @@ const extendedApi = webApi
           method: "POST",
           body: payload,
         }),
-        invalidatesTags: [{ type: "User", id: "LIST" }],
+        onQueryStarted: (user, { dispatch, queryFulfilled }) => {
+          const patchResult = dispatch(
+            extendedApi.util.updateQueryData("getUsers", undefined, (draft) => {
+              userAdapter.addOne(draft, user);
+            })
+          );
+
+          queryFulfilled.catch(patchResult.undo);
+        },
       }),
       deleteUser: builder.mutation<boolean, number>({
         query: (userId: number) => ({

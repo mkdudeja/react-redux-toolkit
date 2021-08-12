@@ -4,9 +4,9 @@ export enum RequestState {
 }
 
 export enum UserRole {
-  Admin = "1",
-  HOD = "2",
-  Teacher = "3",
+  Admin = 1,
+  HOD = 2,
+  Teacher = 3,
 }
 
 export enum AuthorizationResult {

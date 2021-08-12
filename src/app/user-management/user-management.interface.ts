@@ -13,3 +13,8 @@ export interface IUserDetails {
   is_active: number;
   date_created: string;
 }
+
+export interface IDialogUserDetails {
+  open: boolean;
+  user: IUserDetails;
+}
