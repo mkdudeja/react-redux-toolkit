@@ -1,6 +1,6 @@
 import { AsyncThunkPayloadCreator } from "@reduxjs/toolkit";
 import * as accountService from "../../account.service";
-import { ILoginRequest, ILoginResponse } from "../login.iterface";
+import { ILoginRequest, ILoginResponse } from "../login.interface";
 
 export const loginHandler: AsyncThunkPayloadCreator<
   ILoginResponse,

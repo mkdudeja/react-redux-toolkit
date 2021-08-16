@@ -1,4 +1,5 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import { apiBase } from "./middlewares";
 import rootReducer from "./reducer";
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -15,6 +16,6 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
       thunk: true,
-    });
+    }).concat(apiBase.middleware);
   },
 });
