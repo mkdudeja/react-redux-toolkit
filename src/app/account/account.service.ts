@@ -5,7 +5,7 @@ import {
   ILoginRequest,
   ILoginResponse,
   IUserData,
-} from "./login/login.iterface";
+} from "./login/login.interface";
 
 const KEYS_TO_PARSE = ["id", "role", "language"];
 

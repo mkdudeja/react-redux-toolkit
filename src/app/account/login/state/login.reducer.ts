@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { RequestState } from "../../../shared/config";
-import { LoginState } from "../login.iterface";
+import { LoginState } from "../login.interface";
 import * as loginActions from "./login.actions";
 
 const initialState: LoginState = {
