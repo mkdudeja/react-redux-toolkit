@@ -1,1 +1,1 @@
-export { default as webApi } from "./api";
+export { default as apiBase } from "./apiBase";

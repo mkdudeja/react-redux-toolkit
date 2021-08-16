@@ -13,9 +13,10 @@ import EditIcon from "@material-ui/icons/Edit";
 import React from "react";
 import { toast } from "react-toastify";
 import { languageActions, languageSelectors } from "../language/state";
-import { DialogConfirm } from "../shared/components";
+import { DialogConfirm, ErrorMessage } from "../shared/components";
 import { IDialogConfirm, IToggleStatus } from "../shared/interfaces";
 import { DialogConfirmModel } from "../shared/models";
+import { helper } from "../shared/utils";
 import { useAppDispatch, useAppSelector } from "../state";
 import DialogUserDetails from "./dialog-user-details/dialog-user-details.component";
 import { IDialogUserDetails, IUserDetails } from "./user-management.interface";
@@ -95,12 +96,14 @@ const UserManagement: React.FC<{}> = (props: {}) => {
   };
 
   const updateStatus = async (payload: IToggleStatus) => {
+    setDialogConfirm({ ...dialogConfirm, open: false });
     try {
       await updateStatusFn(payload).unwrap();
-      setDialogConfirm({ ...dialogConfirm, open: false });
       toast.success("Selected user's status updated successfully.");
     } catch (err) {
-      toast.error(err.message);
+      toast.error(
+        <ErrorMessage message={helper.prepareMessage(err.message)} />
+      );
     }
   };
 
@@ -110,7 +113,9 @@ const UserManagement: React.FC<{}> = (props: {}) => {
       setDialogConfirm({ ...dialogConfirm, open: false });
       toast.success("Selected user deleted successfully.");
     } catch (err) {
-      toast.error(err.message);
+      toast.error(
+        <ErrorMessage message={helper.prepareMessage(err.message)} />
+      );
     }
   };
 

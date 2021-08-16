@@ -7,7 +7,7 @@ import { appConstants } from "../shared/config";
 import { IToggleStatus } from "../shared/interfaces";
 import { helper } from "../shared/utils";
 import { RootState } from "../state";
-import { webApi } from "../state/middlewares";
+import { apiBase } from "../state/middlewares";
 import { IUserDetails } from "./user-management.interface";
 
 type UsersResponse = Array<IUserDetails>;
@@ -17,14 +17,14 @@ export const userAdapter = createEntityAdapter<IUserDetails>({
   sortComparer: (a, b) => b.id - a.id,
 });
 
-const extendedApi = webApi
+const apiUserManagement = apiBase
   .enhanceEndpoints({
     addTagTypes: ["User"],
   })
   .injectEndpoints({
     endpoints: (builder) => ({
       getUsers: builder.query<EntityState<IUserDetails>, void>({
-        query: () => appConstants.urls.getAllUsers,
+        query: () => ({ url: appConstants.urls.getAllUsers, method: "GET" }),
         transformResponse: (response: UsersResponse) => {
           const result = response.map((user) =>
             helper.parseObjectForInt<IUserDetails>(user, keysToParse)
@@ -44,9 +44,13 @@ const extendedApi = webApi
         }),
         onQueryStarted: (user, { dispatch, queryFulfilled }) => {
           const patchResult = dispatch(
-            extendedApi.util.updateQueryData("getUsers", undefined, (draft) => {
-              userAdapter.addOne(draft, user);
-            })
+            apiUserManagement.util.updateQueryData(
+              "getUsers",
+              undefined,
+              (draft) => {
+                userAdapter.addOne(draft, user);
+              }
+            )
           );
 
           queryFulfilled.catch(patchResult.undo);
@@ -60,9 +64,13 @@ const extendedApi = webApi
         }),
         onQueryStarted: async (userId, { dispatch, queryFulfilled }) => {
           const patchResult = dispatch(
-            extendedApi.util.updateQueryData("getUsers", undefined, (draft) => {
-              userAdapter.removeOne(draft, userId);
-            })
+            apiUserManagement.util.updateQueryData(
+              "getUsers",
+              undefined,
+              (draft) => {
+                userAdapter.removeOne(draft, userId);
+              }
+            )
           );
           queryFulfilled.catch(patchResult.undo);
         },
@@ -75,12 +83,16 @@ const extendedApi = webApi
         }),
         onQueryStarted: ({ id, ...changes }, { dispatch, queryFulfilled }) => {
           const patchResult = dispatch(
-            extendedApi.util.updateQueryData("getUsers", undefined, (draft) => {
-              userAdapter.updateOne(draft, {
-                id,
-                changes,
-              });
-            })
+            apiUserManagement.util.updateQueryData(
+              "getUsers",
+              undefined,
+              (draft) => {
+                userAdapter.updateOne(draft, {
+                  id,
+                  changes,
+                });
+              }
+            )
           );
 
           queryFulfilled.catch(patchResult.undo);
@@ -94,14 +106,18 @@ const extendedApi = webApi
         }),
         onQueryStarted: ({ id, status }, { dispatch, queryFulfilled }) => {
           const patchResult = dispatch(
-            extendedApi.util.updateQueryData("getUsers", undefined, (draft) => {
-              userAdapter.updateOne(draft, {
-                id,
-                changes: {
-                  is_active: status,
-                },
-              });
-            })
+            apiUserManagement.util.updateQueryData(
+              "getUsers",
+              undefined,
+              (draft) => {
+                userAdapter.updateOne(draft, {
+                  id,
+                  changes: {
+                    is_active: status,
+                  },
+                });
+              }
+            )
           );
 
           queryFulfilled.catch(patchResult.undo);
@@ -117,10 +133,10 @@ export const {
   useDeleteUserMutation,
   useUpdateUserMutation,
   useUpdateStatusMutation,
-} = extendedApi;
+} = apiUserManagement;
 
 // create selectors for user's data
-const { getUsers } = extendedApi.endpoints,
+const { getUsers } = apiUserManagement.endpoints,
   { selectAll } = userAdapter.getSelectors(),
   selectGetUsers = (state: RootState) =>
     getUsers.select()(state).data ||
