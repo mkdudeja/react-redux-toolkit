@@ -1,4 +1,5 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { apiBase } from "./middlewares";
 import rootReducer from "./reducer";
 
@@ -19,3 +20,6 @@ export const store = configureStore({
     }).concat(apiBase.middleware);
   },
 });
+
+// enable listener behavior for the store
+setupListeners(store.dispatch);
