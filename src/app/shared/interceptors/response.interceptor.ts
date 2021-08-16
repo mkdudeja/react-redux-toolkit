@@ -14,7 +14,7 @@ const responseInterceptor = (error: AxiosError<IServerError>) => {
     // server-side error
     if (typeof responseData.error === "string") {
       errorMessages.push(responseData.error);
-    } else if (Array.isArray(responseData.error)) {
+    } else if (Array.isArray(responseData.error) && responseData.error.length) {
       errorMessages = responseData.error;
     } else {
       errorMessages.push(
@@ -30,7 +30,7 @@ const responseInterceptor = (error: AxiosError<IServerError>) => {
   return Promise.reject<SerializedError>({
     code: code ? code.toString() : error.code,
     name: error.name,
-    message: errorMessages.join("<br/>"),
+    message: JSON.stringify(errorMessages),
   });
 };
 

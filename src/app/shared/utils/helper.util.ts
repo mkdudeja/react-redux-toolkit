@@ -9,6 +9,14 @@ class Helper {
     return Helper._instance;
   }
 
+  prepareMessage(message: string): Array<string> {
+    try {
+      return JSON.parse(message) as Array<string>;
+    } catch (err) {
+      return [message];
+    }
+  }
+
   doesExist(value: any) {
     return (
       typeof value !== "undefined" &&

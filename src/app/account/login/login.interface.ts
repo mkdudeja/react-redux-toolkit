@@ -18,6 +18,6 @@ export interface ILoginResponse {
 export interface IUserData {
   id: number;
   name: string;
-  role: string;
+  role: number;
   language: number;
 }
