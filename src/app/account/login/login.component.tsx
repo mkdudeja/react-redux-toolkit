@@ -98,29 +98,23 @@ function Login() {
           onSubmit={formik.handleSubmit}
         >
           <TextField
-            variant="outlined"
-            margin="dense"
             id="username"
             type="text"
             label="Email Address"
             name="username"
             autoFocus
             required
-            fullWidth
             value={formik.values.username}
             onChange={formik.handleChange}
             error={formik.touched.username && Boolean(formik.errors.username)}
             helperText={formik.touched.username && formik.errors.username}
           />
           <TextField
-            variant="outlined"
-            margin="dense"
             name="password"
             label="Password"
             type="password"
             id="password"
             required
-            fullWidth
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}

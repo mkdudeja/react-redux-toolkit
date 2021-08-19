@@ -1,12 +1,10 @@
 import { Button, Menu, MenuItem } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
-import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import clsx from "clsx";
 import React from "react";
 import { useAppDispatch } from "../../../state";
@@ -14,7 +12,7 @@ import { authActions } from "../../../state/auth";
 import { useAuthState } from "../../hooks";
 import { storageService } from "../../services";
 
-const drawerWidth = 280;
+const drawerWidth = 220;
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -36,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    marginRight: 36,
+    marginRight: "1rem",
   },
   menuButtonHidden: {
     display: "none",
@@ -97,12 +95,8 @@ const AppHeader: React.FC<IHeaderProps> = (props: IHeaderProps) => {
         >
           Dashboard
         </Typography>
-        <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
         <Button
+          color="inherit"
           aria-controls="simple-menu"
           aria-haspopup="true"
           onClick={handleClick}

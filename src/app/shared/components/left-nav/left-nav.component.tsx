@@ -14,7 +14,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { UserRole } from "../../config";
 import { useAuthState } from "../../hooks";
 
-const drawerWidth = 280;
+const drawerWidth = 220;
 
 const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
